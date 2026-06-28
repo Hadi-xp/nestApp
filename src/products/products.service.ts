@@ -1,11 +1,13 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ProductsService {
+  constructor(private readonly userService:UsersService){}
   create(createProductDto:CreateProductDto) {
-    return {message:'here the products',data:createProductDto}
+    return {message:'here the products',data:createProductDto,user:this.userService.findUser('10')}
   }
 
   findAll() {
